@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+  <setting name="XmlDocument" value="F:\Projects\OpenTemplater\OpenDesigner\flowtemplate.xml" />
+  <setting name="XslDocument" value="F:\Projects\OpenTemplater\OpenDesigner\flowtemplate.xsl" />
+</settings>

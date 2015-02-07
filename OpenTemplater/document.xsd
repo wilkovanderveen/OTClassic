@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding ="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://stroop.mine.nu/xsd/OpenTemplater"  elementFormDefault="qualified" targetNamespace="http://stroop.mine.nu/xsd/OpenTemplater" >	
+	<xsd:element name="template">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="fonts" nillable="true">
+					<xsd:complexType>
+						<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+							<xsd:element name="font">
+								<xsd:complexType>
+									<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+										<xsd:element name="style">
+											<xsd:annotation>
+												<xsd:documentation xml:lang="en">
+													A style file for this font.
+												</xsd:documentation>
+											</xsd:annotation>
+											<xsd:complexType>
+												<xsd:attribute name="key" use="required" type="xsd:string" />
+												<xsd:attribute name="file" type="xsd:anyURI" use="required">
+													<xsd:annotation>
+														<xsd:documentation xml:lang="en">
+															The file which contains the font.
+														</xsd:documentation>
+													</xsd:annotation>
+												</xsd:attribute >
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="key" use="required" type="xsd:string" />
+									<xsd:attribute name="basepath" type="xsd:anyURI" use="required">
+										<xsd:annotation>
+											<xsd:documentation xml:lang="en">
+												The unique key for this font.
+											</xsd:documentation>
+										</xsd:annotation>
+									</xsd:attribute >
+									<xsd:attribute name="defaultfontsize" type="unit"/>
+									<xsd:attribute name="encoding">
+										<xsd:simpleType>
+											<xsd:restriction base ="xsd:string">
+												<xsd:enumeration value ="CP1252" />
+												<xsd:enumeration value ="UTF-8" />
+												<xsd:enumeration value ="ISO-8859-1" />												
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:attribute>
+								</xsd:complexType>
+								<xsd:unique name="Fonts_Font_Name">
+									<xsd:selector xpath="." />
+									<xsd:field xpath="@key" />
+								</xsd:unique>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="colors" minOccurs ="1" maxOccurs ="1">
+					<xsd:complexType>
+						<xsd:sequence minOccurs ="1" maxOccurs ="unbounded">
+							<xsd:element name="color">
+								<xsd:complexType>
+									<xsd:sequence minOccurs ="1" maxOccurs ="1">
+										<xsd:element name="cmyk" minOccurs ="0" maxOccurs ="1">
+											<xsd:complexType>
+												<xsd:attribute name="cyan" use="required">
+													<xsd:simpleType>
+														<xsd:restriction base="xsd:float">
+															<xsd:minInclusive value ="0" />
+															<xsd:maxInclusive value ="1" />
+														</xsd:restriction>
+													</xsd:simpleType>
+												</xsd:attribute>
+												<xsd:attribute name="magenta" use="required">
+													<xsd:simpleType>
+														<xsd:restriction base="xsd:float">
+															<xsd:minInclusive value ="0" />
+															<xsd:maxInclusive value ="1" />
+														</xsd:restriction>
+													</xsd:simpleType>
+												</xsd:attribute >
+												<xsd:attribute name="yellow" use="required">
+													<xsd:simpleType>
+														<xsd:restriction base="xsd:float">
+															<xsd:minInclusive value ="0" />
+															<xsd:maxInclusive value ="1" />
+														</xsd:restriction>
+													</xsd:simpleType>
+												</xsd:attribute >
+												<xsd:attribute name="black" use="required">
+													<xsd:simpleType>
+														<xsd:restriction base="xsd:float">
+															<xsd:minInclusive value ="0" />
+															<xsd:maxInclusive value ="1" />
+														</xsd:restriction>
+													</xsd:simpleType>
+												</xsd:attribute>
+												<xsd:attribute name="tint" use="optional">
+													<xsd:simpleType>
+														<xsd:restriction base="xsd:float">
+															<xsd:maxInclusive value="1" />
+															<xsd:minInclusive value="0" />
+														</xsd:restriction>
+													</xsd:simpleType>
+												</xsd:attribute>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="rgb" minOccurs ="0" maxOccurs ="1">
+											<xsd:complexType>
+												<xsd:attribute name="red" use="required">
+													<xsd:simpleType>
+														<xsd:restriction base="xsd:integer" >
+															<xsd:minInclusive value ="0" />
+															<xsd:maxInclusive value ="255" />
+														</xsd:restriction>
+													</xsd:simpleType>
+												</xsd:attribute >
+												<xsd:attribute name="green" use="required">
+													<xsd:simpleType>
+														<xsd:restriction base="xsd:integer" >
+															<xsd:minInclusive value="0" />
+															<xsd:maxInclusive value="255" />
+														</xsd:restriction>
+													</xsd:simpleType>
+												</xsd:attribute >
+												<xsd:attribute name="blue" use="required">
+													<xsd:simpleType>
+														<xsd:restriction base="xsd:integer" >
+															<xsd:minInclusive value="0" />
+															<xsd:maxInclusive value="255" />
+														</xsd:restriction>
+													</xsd:simpleType>
+												</xsd:attribute >
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="pms" maxOccurs="1" minOccurs ="0">
+											<xsd:complexType>
+												<xsd:attribute name="name" use="required" />
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+									<xsd:attribute name="key" use="required" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="metadata" nillable="true">
+					<xsd:complexType>
+						<xsd:choice maxOccurs="unbounded">
+							<xsd:element maxOccurs ="1" name="title" type="xsd:string" />
+							<xsd:element maxOccurs ="1" name="author" type="xsd:string" />
+							<xsd:element maxOccurs ="1" name="subject" type="xsd:string" />
+						</xsd:choice>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="document">
+					<xsd:complexType>
+						<xsd:sequence maxOccurs="1" minOccurs="1">
+							<xsd:element name="pageSequence">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="staticPage" minOccurs="0" maxOccurs="unbounded">
+											<xsd:complexType>												
+												<xsd:attribute name="refKey" type ="xsd:string" use="required" />												
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="dynamicPage" minOccurs="0" maxOccurs="unbounded">
+											<xsd:complexType>
+												<xsd:sequence minOccurs="0">
+													<xsd:element nillable="true" name="onVerticalOverflow">
+														<xsd:complexType>
+															<xsd:attribute name="createNewPageFromTemplate" type="xsd:string" />
+														</xsd:complexType>
+													</xsd:element> 
+												</xsd:sequence>
+												<xsd:attribute name="refKey" type ="xsd:string" use="required" />												
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="pageTemplate" maxOccurs="unbounded" minOccurs="0" nillable="true" >
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="layout">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element name="hoffset">
+														<xsd:complexType>
+															<xsd:attribute name="value" type="unit" />
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="voffset">
+														<xsd:complexType>
+															<xsd:attribute name="value" type="unit" />
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="width">
+														<xsd:complexType>
+															<xsd:attribute name="value" type="unit" />
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element name="height">
+														<xsd:complexType>
+															<xsd:attribute name="value" type="unit" />
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element ref="content" />
+									</xsd:sequence>
+									<xsd:attribute name="key" use="required" type="xsd:string" />
+									<xsd:attribute name="width" type="unit" use="required"/>
+									<xsd:attribute name="height" type="unit" use="required" />
+									<xsd:attribute name="colortype">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:enumeration value ="rgb" />
+												<xsd:enumeration value ="cmyk" />
+												<xsd:enumeration value="pms" />
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:attribute>
+									<xsd:attribute name="bleeding" type="unit" />
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="page" minOccurs="0" maxOccurs ="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element ref="content" />
+									</xsd:sequence>
+									<xsd:attribute name="key" use="required" type="xsd:string" />
+									<xsd:attribute name="width" type="unit" use="required"/>
+									<xsd:attribute name="height" type="unit" use="required" />
+									<xsd:attribute name="colortype">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:enumeration value ="rgb" />
+												<xsd:enumeration value ="cmyk" />
+												<xsd:enumeration value="pms" />
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:attribute>
+									<xsd:attribute name="bleeding" type="unit" />
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+						<xsd:attribute name="dpi" use="optional" type="xsd:positiveInteger" />
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="content">
+		<xsd:complexType>
+			<xsd:choice minOccurs="1" maxOccurs="unbounded">
+				<xsd:element name="text">
+					<xsd:complexType>
+						<xsd:complexContent>
+							<xsd:extension base="element">
+								<xsd:sequence>
+									<xsd:element name="paragraphs" minOccurs="1" maxOccurs="1" nillable="true">
+										<xsd:complexType>
+											<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+												<xsd:element name="paragraph" minOccurs="0" maxOccurs="unbounded">
+													<xsd:complexType>
+														<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+															<xsd:element name="textelement">
+																<xsd:complexType mixed="true">
+																	<xsd:sequence>
+																		<xsd:element ref="content" minOccurs="0" maxOccurs="1" />
+																	</xsd:sequence>
+																	<xsd:attribute name="font" use="required" type="xsd:string" />
+																	<xsd:attribute name="fontsize" type="unit" use="required" />
+																	<xsd:attribute name="color" type="xsd:string" use="required" />
+																	<xsd:attribute name="style" type="xsd:string" use="required" />
+																</xsd:complexType>
+															</xsd:element>
+														</xsd:sequence>
+														<xsd:attribute name="leading" type="unit" />
+														<xsd:attribute name="alignment" default="left" >
+															<xsd:simpleType>
+																<xsd:restriction base="xsd:string">
+																	<xsd:enumeration value="left" />
+																	<xsd:enumeration value="center" />
+																	<xsd:enumeration value="right" />
+																	<xsd:enumeration value="justify" />
+																</xsd:restriction>
+															</xsd:simpleType>
+														</xsd:attribute>
+													</xsd:complexType>
+												</xsd:element>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:extension>
+						</xsd:complexContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="line">
+					<xsd:complexType>
+						<xsd:attribute name="width" type="unit" use="required" />
+					</xsd:complexType>					
+				</xsd:element>
+				<xsd:element name="rectangle"></xsd:element>
+				<xsd:element name="image">
+					<xsd:complexType>
+						<xsd:complexContent>
+							<xsd:extension base="element">
+								<xsd:attribute name="path" type="xsd:anyURI" />
+							</xsd:extension >
+						</xsd:complexContent>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="layout">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="1" maxOccurs="1">
+				<xsd:element name="hoffset" type="value" />
+				<xsd:element name="voffset" type="value" />
+				<xsd:element name="width" type="value" />
+				<xsd:element name="height" type="value" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:simpleType name="unit">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="(?&lt;Nbr&gt;[\+-]?((\d*\,\d+)|(\d*\.\d+)|\d+))\s*(?&lt;Unit&gt;mm|inch|pt)">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="en">
+						The unit must be in a valid format.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:pattern >
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="value" id="value">
+		<xsd:sequence minOccurs="0" maxOccurs="1">
+			<xsd:element name="relation">
+				<xsd:complexType>
+					<xsd:attribute name="element" type="xsd:string" use="required">
+
+					</xsd:attribute>
+					<xsd:attribute name="from" use="optional">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="top" />
+								<xsd:enumeration value="bottom" />
+								<xsd:enumeration value="left" />
+								<xsd:enumeration value="right" />
+								<xsd:enumeration value="width" />
+								<xsd:enumeration value="height" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="value" type="unit" />
+	</xsd:complexType>
+
+	<xsd:complexType id="element" name="element" abstract="true">
+		<xsd:sequence minOccurs="1" maxOccurs ="1">
+			<xsd:element ref="layout" />
+		</xsd:sequence>
+		<xsd:attribute name="key" use="required" type="xsd:string" />
+		<xsd:attribute name="zorder" use="optional" type="xsd:positiveInteger" />
+	</xsd:complexType>	
+</xsd:schema>

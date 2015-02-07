@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3CE238E4-5BEB-4337-B15F-A6F2F0821996}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenTemplater</RootNamespace>
+    <AssemblyName>OpenTemplater</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\OpenTemplater.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="iTextSharp">
+      <HintPath>..\packages\iTextSharp-LGPL.4.1.6\lib\iTextSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseRenderElement.cs" />
+    <Compile Include="BaseRenderElementContainer.cs" />
+    <Compile Include="Common\Measuring\FontStyleDefinition.cs" />
+    <Compile Include="ConfigSettings.cs" />
+    <Compile Include="IRenderElement.cs" />
+    <Compile Include="IRenderElementContainer.cs" />
+    <Compile Include="IRenderEngine.cs" />
+    <Compile Include="Models\BaseElement.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\BasePage.cs" />
+    <Compile Include="Models\BasePageElement.cs" />
+    <Compile Include="Models\Collections\ElementCollection.cs" />
+    <Compile Include="Models\Collections\IIndexableCollection.cs" />
+    <Compile Include="Models\Collections\PageCollection.cs" />
+    <Compile Include="Models\Collections\PageTemplateCollection.cs" />
+    <Compile Include="Models\Collections\ParagraphCollection.cs" />
+    <Compile Include="Models\Collections\TextElementCollection.cs" />
+    <Compile Include="Models\Collections\TextlineCollection.cs" />
+    <Compile Include="Models\Content.cs" />
+    <Compile Include="Models\Document.cs" />
+    <Compile Include="Models\Exceptions\BaseException.cs" />
+    <Compile Include="Models\Exceptions\DuplicateKeyException.cs" />
+    <Compile Include="Models\Exceptions\KeyNotFoundException.cs" />
+    <Compile Include="Models\IElement.cs" />
+    <Compile Include="Models\IElementContainer.cs" />
+    <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\Interfaces\IPageDefinition.cs" />
+    <Compile Include="Models\IPageElement.cs" />
+    <Compile Include="Models\Layout\BaseRelation.cs" />
+    <Compile Include="Models\Layout\Dimension.cs" />
+    <Compile Include="Models\Layout\LayoutObject.cs" />
+    <Compile Include="Models\Layout\ResizeOptions.cs" />
+    <Compile Include="Models\Layout\PageTemplateLayout.cs" />
+    <Compile Include="Models\Layout\Until.cs" />
+    <Compile Include="Models\PageSequence.cs" />
+    <Compile Include="Models\PageSequenceElement.cs" />
+    <Compile Include="Models\PageTemplate.cs" />
+    <Compile Include="Models\ResizeType.cs" />
+    <Compile Include="Models\TemplateAction.cs" />
+    <Compile Include="Models\Text\Formatter.cs" />
+    <Compile Include="Models\Text\Textline.cs" />
+    <Compile Include="Models\Typography\Collections\FontStyleCollection.cs" />
+    <Compile Include="Models\Typography\FontStyle.cs" />
+    <Compile Include="Common\Exceptions\FontNotFoundException.cs" />
+    <Compile Include="Common\Exceptions\MissingAttributeException.cs" />
+    <Compile Include="Common\Measuring\Text\SplitCharacter.cs" />
+    <Compile Include="Common\Measuring\Text\SplitCharacterList.cs" />
+    <Compile Include="Common\Measuring\Text\TextElement.cs" />
+    <Compile Include="Core\Modules\LayoutModule.cs" />
+    <Compile Include="Core\Modules\PagingModule.cs" />
+    <Compile Include="Core\Modules\TextModule.cs" />
+    <Compile Include="Models\Layout\LayoutContainer.cs" />
+    <Compile Include="Models\Layout\Relation.cs" />
+    <Compile Include="Common\Measuring\Unit.cs" />
+    <Compile Include="Models\Line.cs" />
+    <Compile Include="Models\Page.cs" />
+    <Compile Include="Models\Rectangle.cs" />
+    <Compile Include="Models\Text\Text.cs" />
+    <Compile Include="Models\Text\Paragraph.cs" />
+    <Compile Include="Models\Text\TextElement.cs" />
+    <Compile Include="Models\Typography\CMYKColor.cs" />
+    <Compile Include="Models\Typography\Collections\ColorCollection.cs" />
+    <Compile Include="Models\Typography\Collections\FontCollection.cs" />
+    <Compile Include="Models\Typography\Color.cs" />
+    <Compile Include="Models\Typography\Font.cs" />
+    <Compile Include="Models\Typography\Interfaces\IColorType.cs" />
+    <Compile Include="Models\Typography\PMSColor.cs" />
+    <Compile Include="Models\Typography\RGBColor.cs" />
+    <Compile Include="Output\IOutputDocument.cs" />
+    <Compile Include="Presentation\BaseRenderableObject.cs" />
+    <Compile Include="Presentation\IListener.cs" />
+    <Compile Include="Presentation\Interfaces\IRenderObject.cs" />
+    <Compile Include="Presentation\IRenderableObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Xsd\XsdValidationEventHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="document.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenTemplater.Data.Xml\OpenTemplater.Data.Xml.csproj">
+      <Project>{5926D1E1-CC6E-4025-AA48-A3859BC84D61}</Project>
+      <Name>OpenTemplater.Data.Xml</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Typography\Collections\Interfaces\" />
+    <Folder Include="Presentation\XHTML\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
