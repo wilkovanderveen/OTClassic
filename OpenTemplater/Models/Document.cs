@@ -152,15 +152,18 @@ namespace OpenTemplater.Models
             // Load colors
             foreach (Color color in xmlDataDocument.Colors)
             {
-                var bColor = new Typography.Color(color.Key);
-                bColor.CMYKColor = new CMYKColor(color.CMYKColor.Cyan,
-                                                 color.CMYKColor.Magenta,
-                                                 color.CMYKColor.Yellow,
-                                                 color.CMYKColor.Black,
-                                                 color.CMYKColor.Tint);
-                bColor.RGBColor = new RGBColor(color.RGBColor.Red,
-                                               color.RGBColor.Green,
-                                               color.RGBColor.Blue);
+                var bColor = new Typography.Color(color.Key)
+                {
+                    CMYKColor = new CMYKColor(color.CMYKColor.Cyan,
+                        color.CMYKColor.Magenta,
+                        color.CMYKColor.Yellow,
+                        color.CMYKColor.Black,
+                        color.CMYKColor.Tint),
+                    RGBColor = new RGBColor(color.RGBColor.Red,
+                        color.RGBColor.Green,
+                        color.RGBColor.Blue,
+                        color.RGBColor.Alpha)
+                };
 
                 if (color.PMSColor != null)
                 {
@@ -170,7 +173,7 @@ namespace OpenTemplater.Models
             }
 
             // Load pages
-            int pageNumber = 1;
+            const int pageNumber = 1;
 
             foreach (XmlPageDefinition dataPage in xmlDataDocument.Pages)
             {

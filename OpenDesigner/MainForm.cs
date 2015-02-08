@@ -188,10 +188,5 @@ namespace OpenDesigner
             Forms.Template templateForm = new Template();
             templateForm.ShowDialog(this);
         }
-
-      
-      
-
-  
     }
 }

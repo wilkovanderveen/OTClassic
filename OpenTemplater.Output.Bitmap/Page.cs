@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
 using System.Drawing;
-using iTextSharp.text;
 using OpenTemplater.Models;
-using Color = System.Drawing.Color;
-using Font = System.Drawing.Font;
-using Paragraph=OpenTemplater.Models.Text.Paragraph;
+using OpenTemplater.Models.Text;
+using OpenTemplater.Presentation.Bitmap.Interfaces;
+using Image = OpenTemplater.Models.Image;
 using Rectangle = System.Drawing.Rectangle;
 
-namespace OpenTemplater.Presentation.Bitmap
+namespace OpenTemplater.Output.Bitmap
 {
-    public class Page : Interfaces.IContainer
+    public class Page : IContainer
     {
-        private int _width;
-        private int _height;
-        private int _bleedWidth;
-        private int _slugWidth;
-
         private System.Drawing.Bitmap _bitmap;
+        private int _bleedWidth;
+        private int _height;
+        private int _slugWidth;
+        private int _width;
 
         public Page(Models.Page businessPage)
         {
@@ -30,7 +24,7 @@ namespace OpenTemplater.Presentation.Bitmap
             //TODO: Bleed and slug
 
             _bitmap = new System.Drawing.Bitmap(_width, _height);
-            System.Drawing.Graphics pageGraphics = Graphics.FromImage(_bitmap);
+            Graphics pageGraphics = Graphics.FromImage(_bitmap);
             _bitmap.MakeTransparent();
 
 
@@ -39,15 +33,15 @@ namespace OpenTemplater.Presentation.Bitmap
                 switch (bElement.GetType().Name.ToLower())
                 {
                     case "image":
-                        Models.Image bImage = (Models.Image) bElement;
+                        var bImage = (Image) bElement;
                         try
                         {
                             System.Drawing.Image dImage = System.Drawing.Image.FromFile(new Uri(bImage.Uri).LocalPath);
                             pageGraphics.DrawImage(dImage,
-                                                   new Rectangle(bImage.LayoutContainer.Layout.Left.GetIntegerValue(),
-                                                                 bImage.LayoutContainer.Layout.Top.GetIntegerValue(),
-                                                                 bImage.LayoutContainer.Layout.Width.GetIntegerValue(),
-                                                                 bImage.LayoutContainer.Layout.Height.GetIntegerValue()));
+                                new Rectangle(bImage.LayoutContainer.Layout.Left.GetIntegerValue(),
+                                    bImage.LayoutContainer.Layout.Top.GetIntegerValue(),
+                                    bImage.LayoutContainer.Layout.Width.GetIntegerValue(),
+                                    bImage.LayoutContainer.Layout.Height.GetIntegerValue()));
                         }
                         catch (Exception)
                         {
@@ -57,72 +51,72 @@ namespace OpenTemplater.Presentation.Bitmap
                         break;
                     case "line":
 
-                        Models.Line bLine = (Models.Line) bElement;
-                        Pen linePen =
+                        var bLine = (Line) bElement;
+                        var linePen =
                             new Pen(Color.FromArgb(bLine.Color.RGBColor.Red, bLine.Color.RGBColor.Green,
-                                                   bLine.Color.RGBColor.Blue), bLine.Width.Points);
+                                bLine.Color.RGBColor.Blue), bLine.Width.Points);
                         pageGraphics.DrawLine(linePen, bLine.LayoutContainer.Layout.Left.GetIntegerValue(),
-                                              bLine.LayoutContainer.Layout.Top.GetIntegerValue(),
-                                              bLine.LayoutContainer.Layout.Right.GetIntegerValue(),
-                                              bLine.LayoutContainer.Layout.Bottom.GetIntegerValue());
+                            bLine.LayoutContainer.Layout.Top.GetIntegerValue(),
+                            bLine.LayoutContainer.Layout.Right.GetIntegerValue(),
+                            bLine.LayoutContainer.Layout.Bottom.GetIntegerValue());
 
                         break;
 
                     case "rectangle":
 
-                        Models.Rectangle bRectangle = (Models.Rectangle) bElement;
-                        Pen rectPen =
+                        var bRectangle = (Models.Rectangle) bElement;
+                        var rectPen =
                             new Pen(Color.FromArgb(bRectangle.BorderColor.RGBColor.Red,
-                                                   bRectangle.BorderColor.RGBColor.Green,
-                                                   bRectangle.BorderColor.RGBColor.Blue,
-                                                   bRectangle.BorderWidth.GetIntegerValue()));
-                        System.Drawing.Rectangle rectangle =
+                                bRectangle.BorderColor.RGBColor.Green,
+                                bRectangle.BorderColor.RGBColor.Blue,
+                                bRectangle.BorderWidth.GetIntegerValue()));
+                        var rectangle =
                             new Rectangle(bElement.LayoutContainer.Layout.Left.GetIntegerValue(),
-                                          bElement.LayoutContainer.Layout.Top.GetIntegerValue(),
-                                          bElement.LayoutContainer.Layout.Width.GetIntegerValue(),
-                                          bElement.LayoutContainer.Layout.Height.GetIntegerValue());
+                                bElement.LayoutContainer.Layout.Top.GetIntegerValue(),
+                                bElement.LayoutContainer.Layout.Width.GetIntegerValue(),
+                                bElement.LayoutContainer.Layout.Height.GetIntegerValue());
                         pageGraphics.DrawRectangle(rectPen, rectangle);
 
                         if (bRectangle.FillColor != null)
                         {
-                            System.Drawing.Color fillColor = Color.FromArgb(bRectangle.FillColor.RGBColor.Red,
-                                                                            bRectangle.FillColor.RGBColor.Green,
-                                                                            bRectangle.FillColor.RGBColor.Blue);
+                            Color fillColor = Color.FromArgb(bRectangle.FillColor.RGBColor.Red,
+                                bRectangle.FillColor.RGBColor.Green,
+                                bRectangle.FillColor.RGBColor.Blue);
                             pageGraphics.FillRectangle(new SolidBrush(fillColor), rectangle);
                         }
 
                         break;
 
                     case "text":
-                        Models.Text.Text bText = (Models.Text.Text) bElement;
+                        var bText = (Text) bElement;
 
-                        RectangleF placeholderRectangle =
+                        var placeholderRectangle =
                             new RectangleF(bText.LayoutContainer.Layout.Left.GetIntegerValue(),
-                                           bText.LayoutContainer.Layout.Top.GetIntegerValue(),
-                                           bText.LayoutContainer.Layout.Width.GetIntegerValue(),
-                                           bText.LayoutContainer.Layout.Height.GetIntegerValue());
+                                bText.LayoutContainer.Layout.Top.GetIntegerValue(),
+                                bText.LayoutContainer.Layout.Width.GetIntegerValue(),
+                                bText.LayoutContainer.Layout.Height.GetIntegerValue());
 
-                        foreach (Models.Text.Paragraph bTextParagraph in bText.Paragraphs)
+                        foreach (Paragraph bTextParagraph in bText.Paragraphs)
                         {
-                            StringFormat paragraphFormat = new StringFormat();
+                            var paragraphFormat = new StringFormat();
                             paragraphFormat.LineAlignment = GetAligment(bTextParagraph.Alignment);
 
 
-                            foreach (Models.Text.TextElement bTextElement in bTextParagraph.TextElements)
+                            foreach (TextElement bTextElement in bTextParagraph.TextElements)
                             {
                                 //TODO: Use logic from PDF text to calculate text width and height + placement.
-                                System.Drawing.Font font = new Font(bTextElement.FontStyle.Path,
-                                                                    bTextElement.FontSize.Points, FontStyle.Regular);
+                                var font = new Font(bTextElement.FontStyle.Path,
+                                    bTextElement.FontSize.Points, FontStyle.Regular);
 
-                                SolidBrush brush =
+                                var brush =
                                     new SolidBrush(Color.FromArgb(bTextElement.Color.RGBColor.Red,
-                                                                  bTextElement.Color.RGBColor.Green,
-                                                                  bTextElement.Color.RGBColor.Blue));
+                                        bTextElement.Color.RGBColor.Green,
+                                        bTextElement.Color.RGBColor.Blue));
                                 pageGraphics.DrawString(bTextElement.Text, font, brush, placeholderRectangle,
-                                                        paragraphFormat);
+                                    paragraphFormat);
                                 SizeF stringArea = pageGraphics.MeasureString(bTextElement.Text, font,
-                                                                              bElement.LayoutContainer.Layout.Width.
-                                                                                  GetIntegerValue(), paragraphFormat);
+                                    bElement.LayoutContainer.Layout.Width.
+                                        GetIntegerValue(), paragraphFormat);
                             }
                         }
 
@@ -136,21 +130,21 @@ namespace OpenTemplater.Presentation.Bitmap
             _bitmap.Save("Page_" + businessPage.Key + ".png");
         }
 
-        private System.Drawing.StringAlignment GetAligment(Paragraph.AlignmentType alignmentType)
+        private StringAlignment GetAligment(Paragraph.AlignmentType alignmentType)
         {
             if (alignmentType == Paragraph.AlignmentType.left)
             {
-                return System.Drawing.StringAlignment.Near;
+                return StringAlignment.Near;
             }
             if (alignmentType == Paragraph.AlignmentType.right)
             {
-                return System.Drawing.StringAlignment.Far;
+                return StringAlignment.Far;
             }
             if (alignmentType == Paragraph.AlignmentType.center)
             {
-                return System.Drawing.StringAlignment.Center;
+                return StringAlignment.Center;
             }
-            return System.Drawing.StringAlignment.Near;
+            return StringAlignment.Near;
         }
     }
 }

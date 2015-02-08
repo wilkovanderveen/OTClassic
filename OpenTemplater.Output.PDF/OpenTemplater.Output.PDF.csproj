@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseContainer.cs" />
     <Compile Include="BaseElement.cs" />
     <Compile Include="Elements\Text\TextElement.cs" />
     <Compile Include="Elements\Text\Textline.cs" />

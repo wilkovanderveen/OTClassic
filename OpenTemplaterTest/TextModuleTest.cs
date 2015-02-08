@@ -26,11 +26,9 @@ namespace OpenTemplaterTest
             FontStyle fs = new FontStyle(f, "STYLE", "arial.ttf");
             f.AddStyle(fs);
 
-            object[] paramList;
-
             Content container = new Content(page);
 
-            paramList = new object[2];
+            object[] paramList = new object[2];
             paramList[0] = container;
             paramList[1] = "TEXT";
 

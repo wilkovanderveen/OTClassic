@@ -1,45 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using OpenTemplater.Models.Typography.Interfaces;
 
 namespace OpenTemplater.Models.Typography
 {
-    public class RGBColor : Interfaces.IColorType
+    public class RGBColor : IColorType
     {
-        private byte _red;
-        private byte _green;
-        private byte _blue;
-        private byte _alpha;
+        public RGBColor(string red, string green, string blue, string alpha)
+        {
+            Red = Convert.ToByte(red);
+            Green = Convert.ToByte(green);
+            Blue = Convert.ToByte(blue);
+            Alpha = Convert.ToByte(alpha);
+        }
 
         /// <summary>
-        /// The red component of a RGB color.
+        ///     The red component of a RGB color.
         /// </summary>
-        public byte Red
-        {
-            get { return _red; }
-        }
+        public byte Red { get; private set; }
 
-        public byte Green
-        {
-            get { return _green; }
-        }
+        public byte Green { get; private set; }
 
-        public byte Blue
-        {
-            get { return _blue; }
-        }
+        public byte Blue { get; private set; }
 
-        public byte Alpha
-        {
-            get { return _alpha; }
-        }
-
-        public RGBColor(string red, string green, string blue)
-        {
-            _red = System.Convert.ToByte(red);
-            _green = System.Convert.ToByte(green);
-            _blue = System.Convert.ToByte(blue);
-        }
+        public byte Alpha { get; private set; }
     }
 }

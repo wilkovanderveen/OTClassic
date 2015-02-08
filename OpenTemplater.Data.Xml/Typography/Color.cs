@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Xml;
 
 namespace OpenTemplater.Data.Xml.Typography
 {
     public class Color
     {
-        public string Key;
         public CMYKColor CMYKColor;
-        public RGBColor RGBColor;
+        public string Key;
         public PMSColor PMSColor;
+        public RGBColor RGBColor;
 
-        public Color(System.Xml.XmlNode colorNode)
+        public Color(XmlNode colorNode)
         {
             Key = colorNode.Attributes["key"].Value;
 
