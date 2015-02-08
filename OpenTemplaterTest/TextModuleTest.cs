@@ -17,7 +17,7 @@ namespace OpenTemplaterTest
     [TestFixture]
     public class TextModuleTest
     {
-        [Test]
+        [Test, Explicit]
         public void ConvertToTextlines_Text()
         {
             Page page = new Page(new Document(), "PAGE", "200mm", "200mm", "rgb", "3mm", 1);
@@ -61,7 +61,7 @@ namespace OpenTemplaterTest
             
         }
 
-        [Test]
+        [Test, Explicit]
         public void TextOverflow()
         {
             Page page = new Page(new Document(), "PAGE", "200mm", "200mm", "rgb", "3mm", 1);

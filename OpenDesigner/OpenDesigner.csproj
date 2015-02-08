@@ -15,7 +15,7 @@
     <ManifestCertificateThumbprint>BB278A6EE09E001C3D73700DAF9F1225176CD6B9</ManifestCertificateThumbprint>
     <ManifestKeyFile>OpenDesigner_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>http://82.171.173.76/files/</PublishUrl>
     <Install>true</Install>

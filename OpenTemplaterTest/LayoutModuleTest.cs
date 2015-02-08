@@ -45,7 +45,7 @@ namespace OpenTemplaterTest
             Assert.AreEqual(25f, result);
         }
 
-        [Test]
+        [Test, Explicit]
         public void GetNewUnit_ResizeGrowShrink_ReturnOriginal_40()
         {
             float result = _layoutModule.GetNewUnit(40, 70, 80, 100, ResizeType.GrowAndShrink);
